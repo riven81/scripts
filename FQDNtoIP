@@ -1,0 +1,6 @@
+file="/home/aa.txt"
+while IFS=read -r line
+do
+output='getent hosts "$line" | cut -d'  ' -f1`
+echo $line,$output >> result.txt
+done <<"$file"
