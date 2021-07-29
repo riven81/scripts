@@ -1,4 +1,4 @@
-file="/home/ricky/script/FQDNtoIP/input_list.txt"
+file="input_list.txt"
 if [ -s result.txt ]
 then
                 echo "saved previous results"
