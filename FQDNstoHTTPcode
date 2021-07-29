@@ -1,23 +1,24 @@
 #!/bin/bash
-file="/home/ricky/script/FQDNtoIP/input_list.txt"
+file="input_list.txt"
 if [ -s result.txt ]
 then
-                echo "saved previous results"
-                        cp result.txt result.txt-"`date +"%d-%m-%Y"`"
-                        rm result.txt
-                else
-                                echo " no previous results available"
-                                        :> result.txt
-                                fi
+        echo "saved previous results"
+        cp result.txt result.txt-"`date +"%d-%m-%Y"`"
+        rm result.txt
+else
+        echo " no previous results available"
+        :> result.txt
+fi
 echo "checking started"
  while IFS= read -r line
-                                do
-                                        for((i=0;i<=100;i+=6)); do
-                                                    printf "%-*s" $((i+1)) '[' | tr ' ' '#'
-                                                        printf "%*s%3d%%\r"  $((100-i))  "]" "$i"
-                                                            sleep 0.1
-                                                    done; echo
-                                        output=`curl -s -I hosts "$line" | cut -d' ' -f1`
-                                        echo $line,$output >> result.txt
-                                done <"$file"
-                                echo "check completed, results are available in the result.txt file"
+ do
+         for((i=0;i<=100;i+=6)); do
+                 printf "%-*s" $((i+1)) '[' | tr ' ' '#'
+                 printf "%*s%3d%%\r"  $((100-i))  "]" "$i"
+                 sleep 0.1
+         done; echo
+         output=`curl -s -I hosts "$line" | grep HTTP/2 | awk {'print $2'}`
+         echo $line,$output >> result.txt
+ done <"$file"
+ echo "check completed, results are available in the result.txt file"
+~                                                                                
