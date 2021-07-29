@@ -8,10 +8,15 @@ then
                                 echo " no previous results available"
                                         :> result.txt
                                 fi
-                                echo " checking started"
+echo "checking started"
                                 while IFS= read -r line
                                 do
+                                        for((i=0;i<=100;i+=6)); do
+                                                    printf "%-*s" $((i+1)) '[' | tr ' ' '#'
+                                                        printf "%*s%3d%%\r"  $((100-i))  "]" "$i"
+                                                            sleep 0.1
+                                                    done; echo
                                         output=`getent hosts "$line" | cut -d' ' -f1`
                                         echo $line,$output >> result.txt
                                 done <"$file"
-                                       
+                                echo "check completed, results are available in the result.txt file"
