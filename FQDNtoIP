@@ -1,3 +1,4 @@
+#!/bin/bash
 file="input_list.txt"
 if [ -s result.txt ]
 then
